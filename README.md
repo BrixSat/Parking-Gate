@@ -1,9 +1,19 @@
 # Parking-Gate
 Arduino parking gate controller
 
+
 This project is intended to be a Camping site gate controller.
 The description is the following. 
 
+![alt tag](https://github.com/BrixSat/Parking-Gate/blob/master/desenho.png?raw=true)
+
+Legend:
+A - Exit card rfid rc522 card reader
+B - Entrance card rfid rc522 card reader
+C - Photocell module one
+D - Photocell module two
+E - 24 volt motor
+F - Blinking light
 
 We have a photocell to control the existence of cars and persons on the gate. 
 Two RFID rc522 card readers one for the entrance and another for the other side the exit.
