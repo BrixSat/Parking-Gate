@@ -3,8 +3,13 @@
 #include <MFRC522.h>
 
 // Liquid Cristal Screen
+<<<<<<< HEAD
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
+=======
+//#include <Wire.h>
+//#include <LiquidCrystal_I2C.h>
+>>>>>>> 385afea2a6e9594de6b0a7b706df8f89f19b7d67
 
 // Ethernet
 #include <Dhcp.h>
@@ -14,6 +19,7 @@
 #include <EthernetServer.h>
 #include <EthernetUdp.h>
 
+<<<<<<< HEAD
 // Sd card reader
 #include <SD.h> // We are going to read and write PICC's UIDs from/to SD
 
@@ -39,10 +45,27 @@ LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
 #define SS_PIN 53
 #define RST_PIN 5
+=======
+// Liquid Crystal initialize PIN 2 (SDA), PIN 3 (SCL) if arduino leonardo
+//LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
+
+// Software version
+String version =  "V1.0";
+
+// MFRC522 card reader
+#define SS_PIN 10
+#define RST_PIN 9
+
+// Lcd rows and columns
+#define lcdRows 2
+#define lcdCols 16
+
+>>>>>>> 385afea2a6e9594de6b0a7b706df8f89f19b7d67
 
 // Create MFRC522 instance.
 MFRC522 cardReader(SS_PIN, RST_PIN);
 
+<<<<<<< HEAD
 /************ ETHERNET STUFF ************/
 // Initialize the Ethernet server library
 // with the IP address and port you want to use
@@ -69,6 +92,8 @@ String version =  "Ver. 1.0";
 
 String MyIpAddress = "";
 
+=======
+>>>>>>> 385afea2a6e9594de6b0a7b706df8f89f19b7d67
 
 // Log messages to serial port, for debug and stuff
 void logMessage(const String &message)
@@ -76,26 +101,37 @@ void logMessage(const String &message)
   Serial.println(message);
 }
 
+<<<<<<< HEAD
 void clearLcd()
 {
   lcd.clear();
 }
 
+=======
+>>>>>>> 385afea2a6e9594de6b0a7b706df8f89f19b7d67
 // Print a message into the lcd screen centered
 void printLcdMessage(byte line, const String &message)
 {
   //lcd.setBacklight(HIGH);
   //lcd.setBacklight(LOW);
+<<<<<<< HEAD
+=======
+  lcd.clear();
+>>>>>>> 385afea2a6e9594de6b0a7b706df8f89f19b7d67
   int len = message.length();
   int pos = max((lcdCols - len) / 2, 0);
   lcd.setCursor(pos, line);
   lcd.print(message);
+<<<<<<< HEAD
   logMessage(message);
+=======
+>>>>>>> 385afea2a6e9594de6b0a7b706df8f89f19b7d67
 }
 
 // Print the welcome message on the screen
 void printWelcomeMessage()
 {
+<<<<<<< HEAD
   clearLcd();
   printLcdMessage(0, "Camping Ave");
   printLcdMessage(1, "ParkingGate " + version);
@@ -138,6 +174,15 @@ void stopExecution(const String &message)
     delay(2000);
   }
 }
+=======
+  printLcdMessage(0, "ParkingGate " + version);
+  logMessage("ParkingGate " + version);
+  printLcdMessage(1, "Pass card please");
+  logMessage( "Pass card please");
+}
+
+// Check if we can start, like if barrier is up or down
+>>>>>>> 385afea2a6e9594de6b0a7b706df8f89f19b7d67
 bool checkSafety()
 {
 
@@ -164,6 +209,7 @@ void setup()
   lcd.begin(lcdCols, lcdRows);
   //logMessage("Lcd rows:" + lcdRows + ", columns:" + lcdCols +".");
 
+<<<<<<< HEAD
   // Initialize ethernet shield
   initializeEthernet();
 
@@ -178,6 +224,15 @@ void setup()
 
   // RFID card details
   ShowReaderDetails();
+=======
+  // Print a message centered into the LCD screen.
+  printLcdMessage(0, "Cesar Araujo");
+  printLcdMessage(1, "ParkingGate " + version);
+  logMessage("Cesar Araujo  ParkingGate " + version);
+
+  // Wait 3 seconds for message to be displayed
+  delay(3000);
+>>>>>>> 385afea2a6e9594de6b0a7b706df8f89f19b7d67
 
   // checkSafety, if it fails exit with an error code.
   if ( checkSafety() == false )
@@ -188,6 +243,7 @@ void setup()
   printWelcomeMessage();
 }
 
+<<<<<<< HEAD
 void ShowReaderDetails() {
   // Get the MFRC522 software version
   byte v = cardReader.PCD_ReadRegister(cardReader.VersionReg);
@@ -211,6 +267,8 @@ void ShowReaderDetails() {
     stopExecution("Communication failure, is the MFRC522 properly connected?");
   }
 }
+=======
+>>>>>>> 385afea2a6e9594de6b0a7b706df8f89f19b7d67
 
 void loop()
 {
@@ -231,16 +289,27 @@ void loop()
     return;
   }
 
+<<<<<<< HEAD
+=======
+  logMessage("Reading serial data.");
+
+>>>>>>> 385afea2a6e9594de6b0a7b706df8f89f19b7d67
   // Clear the card id
   String cardId = "";
   for (byte i = 0; i < cardReader.uid.size; i++)
   {
+<<<<<<< HEAD
    // Serial.print(cardReader.uid.uidByte[i] < 0x10 ? " 0" : " ");
    // Serial.print(cardReader.uid.uidByte[i], HEX);
+=======
+    Serial.print(cardReader.uid.uidByte[i] < 0x10 ? " 0" : " ");
+    Serial.print(cardReader.uid.uidByte[i], HEX);
+>>>>>>> 385afea2a6e9594de6b0a7b706df8f89f19b7d67
     cardId.concat(String(cardReader.uid.uidByte[i] < 0x10 ? " 0" : " "));
     cardId.concat(String(cardReader.uid.uidByte[i], HEX));
   }
 
+<<<<<<< HEAD
   Serial.write("size" + sizeof(cardId));
 
  // logMessage("Card id: " + cardId);
@@ -248,6 +317,14 @@ void loop()
 
   // For debug only!
   delay(5000);
+=======
+  logMessage("Card id: " + cardId);
+
+  printLcdMessage(0, "card:" + cardId);
+
+  // For debug only!
+  delay(3000);
+>>>>>>> 385afea2a6e9594de6b0a7b706df8f89f19b7d67
 
   //if (cardId.substring(1) == "ED 78 03 CA")
 
